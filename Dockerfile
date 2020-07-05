@@ -1,21 +1,9 @@
 FROM ubuntu:20.04
 
 RUN apt-get update
-RUN apt-get install -y \
-  git \
-  ruby \
-  tmux \
-  vim
+RUN apt-get install -y tmux
 
-RUN gem install homesick
+RUN adduser --disabled-password --gecos '' developer
+USER developer
 
-RUN adduser vim
-USER vim
-
-RUN homesick clone benjaminoakes/homesick-vi-everywhere
-RUN homesick symlink homesick-vi-everywhere --force
-RUN homesick clone ContinuityControl/dotfiles
-RUN homesick symlink dotfiles --force
-
-WORKDIR /workdir
-CMD tmux
+WORKDIR /home/developer
