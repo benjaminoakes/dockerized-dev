@@ -13,8 +13,8 @@ RUN apt-get install -y \
 
 RUN gem install homesick
 
-RUN adduser --disabled-password --gecos '' --shell /usr/bin/zsh developer
-USER developer
+RUN adduser --disabled-password --gecos '' --shell /usr/bin/zsh benjaminoakes
+USER benjaminoakes
 
 RUN curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
 RUN homesick clone benjaminoakes/homesick-vi-everywhere
@@ -27,5 +27,5 @@ RUN mkdir -p ~/.gitconfig.d; printf "\n" > ~/.gitconfig.d/user
 # Might later include my own tmux config but for now, stop its complaining
 RUN mkdir -p ~/.tmux; echo '' > ~/.tmux/user.conf
 
-WORKDIR /home/developer/workspace
+WORKDIR /home/benjaminoakes/workspace
 CMD zsh
