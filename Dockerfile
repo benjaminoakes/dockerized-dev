@@ -26,6 +26,8 @@ RUN mkdir -p ~/.zsh; echo '' > ~/.zsh/local.zsh
 RUN mkdir -p ~/.gitconfig.d; printf "\n" > ~/.gitconfig.d/user
 # Might later include my own tmux config but for now, stop its complaining
 RUN mkdir -p ~/.tmux; echo '' > ~/.tmux/user.conf
+RUN git config --global user.name "Benjamin Oakes"
+RUN git config --global user.email "hello@benjaminoakes.com"
 
 WORKDIR /home/benjaminoakes/workspace
 CMD zsh
