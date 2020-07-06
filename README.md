@@ -2,6 +2,7 @@ Usage:
 
     host$ docker build -t dev .
     host$ docker run --name dev \
+      --hostname dev \
       --privileged \
       -v `readlink -f /var/run/docker.sock`:/var/run/docker.sock \
       -v $PWD:/home/developer/workspace \
