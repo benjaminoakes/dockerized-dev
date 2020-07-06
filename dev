@@ -3,6 +3,10 @@
 docker run --name dev \
   --hostname dev \
   -v "$PWD":/home/benjaminoakes/workspace \
+  -v $SSH_AUTH_SOCK:$SSH_AUTH_SOCK \
+  -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK \
   -d -it dev
-# After first start, run `docker container start dev` then attach
+
+# After first start, instead run `docker container start dev` then
+# attach
 docker attach dev
