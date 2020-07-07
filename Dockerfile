@@ -12,7 +12,7 @@ RUN apt-get install -y \
   wget \
   zsh
 
-RUN gem install homesick
+RUN gem install --no-document homesick
 
 RUN adduser --disabled-password --gecos '' --shell /usr/bin/zsh benjaminoakes
 USER benjaminoakes
