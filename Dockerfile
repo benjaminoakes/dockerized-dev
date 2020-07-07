@@ -9,6 +9,7 @@ RUN apt-get install -y \
   ruby \
   tmux \
   vim \
+  wget \
   zsh
 
 RUN gem install homesick
