@@ -21,6 +21,9 @@ RUN homesick clone benjaminoakes/homesick-vi-everywhere
 RUN homesick symlink homesick-vi-everywhere --force
 RUN homesick clone ContinuityControl/dotfiles
 RUN homesick symlink dotfiles --force
+# This colorscheme is causing problems on first run
+RUN sed -i '/colorscheme solarized8/d' ~/.vimrc
+RUN vim -c 'PlugInstall --sync' -c 'qa'
 
 RUN mkdir -p ~/.zsh; echo '' > ~/.zsh/local.zsh
 RUN mkdir -p ~/.gitconfig.d; printf "\n" > ~/.gitconfig.d/user
