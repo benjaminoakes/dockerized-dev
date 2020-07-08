@@ -1,18 +1,15 @@
 Usage:
 
     host$ docker build -t dev .
-    host$ docker run --name dev \
-      --hostname dev \
-      --privileged \
-      -v `readlink -f /var/run/docker.sock`:/var/run/docker.sock \
-      -v $PWD:/home/developer/workspace \
-      -v $SSH_AUTH_SOCK:$SSH_AUTH_SOCK \
-      -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK \
-      --rm \
-      -d -it dev
+    host$ dev-run
     host$ docker attach dev
-    container$ tmux
+    container$ tmux # or just vim
 
-From a new session:
+If disconnected:
 
+    host$ docker attach dev
+
+If the container is stopped:
+
+    host$ docker container start dev
     host$ docker attach dev
