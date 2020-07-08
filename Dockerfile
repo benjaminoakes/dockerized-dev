@@ -3,10 +3,12 @@ FROM ubuntu:18.04
 RUN apt-get update
 RUN apt-get install -y \
   curl \
+  docker.io \
   git \
   man-db \
   openssh-client \
   ruby \
+  sudo \
   tmux \
   vim \
   wget \
@@ -15,6 +17,17 @@ RUN apt-get install -y \
 RUN gem install --no-document homesick
 
 RUN adduser --disabled-password --gecos '' --shell /usr/bin/zsh benjaminoakes
+RUN adduser benjaminoakes sudo
+
+# Needed for `sudo` for docker because the user doesn't have a password
+#
+# From https://github.com/AGhost-7/docker-dev/blob/master/tutorial/readme.md
+#
+#     Give passwordless sudo. This is only acceptable as it is a private
+#     development environment not exposed to the outside world. Do NOT do this on
+#     your host machine or otherwise.
+RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
 USER benjaminoakes
 
 RUN curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
@@ -32,17 +45,6 @@ RUN mkdir -p ~/.gitconfig.d; printf "\n" > ~/.gitconfig.d/user
 RUN mkdir -p ~/.tmux; echo '' > ~/.tmux/user.conf
 RUN git config --global user.name "Benjamin Oakes"
 RUN git config --global user.email "hello@benjaminoakes.com"
-
-# Get docker working from within container.
-USER root
-RUN apt-get install -y docker.io
-# docker group isn't working yet.  the group is added, but no effect.
-RUN usermod -a -G docker benjaminoakes
-RUN apt-get install -y sudo
-RUN adduser benjaminoakes sudo
-RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
-
-USER benjaminoakes
 
 WORKDIR /home/benjaminoakes/workspace
 CMD zsh
