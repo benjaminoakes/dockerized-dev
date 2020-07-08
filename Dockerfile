@@ -33,5 +33,16 @@ RUN mkdir -p ~/.tmux; echo '' > ~/.tmux/user.conf
 RUN git config --global user.name "Benjamin Oakes"
 RUN git config --global user.email "hello@benjaminoakes.com"
 
+# Get docker working from within container.
+USER root
+RUN apt-get install -y docker.io
+# docker group isn't working yet.  the group is added, but no effect.
+RUN usermod -a -G docker benjaminoakes
+RUN apt-get install -y sudo
+RUN adduser benjaminoakes sudo
+RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+USER benjaminoakes
+
 WORKDIR /home/benjaminoakes/workspace
 CMD zsh
