@@ -26,7 +26,10 @@ RUN adduser benjaminoakes sudo
 #     Give passwordless sudo. This is only acceptable as it is a private
 #     development environment not exposed to the outside world. Do NOT do this on
 #     your host machine or otherwise.
-RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+#
+# Instead, this is limited to 1 user to allow /usr/bin/docker.  If the docker
+# group (and its GID) can be used, sudo may become unnecessary.
+RUN echo 'benjaminoakes ALL=(ALL) NOPASSWD: /usr/bin/docker' >> /etc/sudoers
 
 USER benjaminoakes
 
