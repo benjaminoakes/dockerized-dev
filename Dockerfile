@@ -14,7 +14,6 @@ RUN apt-get install -y \
   openssh-client \
   rlwrap \
   ruby \
-  sudo \
   tmux \
   tree \
   unar \
@@ -24,20 +23,10 @@ RUN apt-get install -y \
 
 RUN gem install --no-document homesick
 
+ENV DOCKER_GID
+RUN groupadd --gid $DOCKER_GID docker
 RUN adduser --disabled-password --gecos '' --shell /usr/bin/zsh benjaminoakes
-RUN adduser benjaminoakes sudo
-
-# Needed for `sudo` for docker because the user doesn't have a password
-#
-# From https://github.com/AGhost-7/docker-dev/blob/master/tutorial/readme.md
-#
-#     Give passwordless sudo. This is only acceptable as it is a private
-#     development environment not exposed to the outside world. Do NOT do this on
-#     your host machine or otherwise.
-#
-# Instead, this is limited to 1 user to allow /usr/bin/docker.  If the docker
-# group (and its GID) can be used, sudo may become unnecessary.
-RUN echo 'benjaminoakes ALL=(ALL) NOPASSWD: /usr/bin/docker' >> /etc/sudoers
+RUN adduser benjaminoakes docker
 
 USER benjaminoakes
 
