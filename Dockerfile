@@ -3,6 +3,9 @@ FROM ubuntu:18.04
 ENV TZ=America/Chicago
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
+ENV DOCKER_GID 995
+RUN groupadd --gid $DOCKER_GID docker
+
 RUN apt-get update
 RUN apt-get install -y \
   ctop \
@@ -23,8 +26,6 @@ RUN apt-get install -y \
 
 RUN gem install --no-document homesick
 
-ENV DOCKER_GID
-RUN groupadd --gid $DOCKER_GID docker
 RUN adduser --disabled-password --gecos '' --shell /usr/bin/zsh benjaminoakes
 RUN adduser benjaminoakes docker
 
