@@ -47,5 +47,8 @@ RUN mkdir -p ~/.tmux; echo '' > ~/.tmux/user.conf
 RUN git config --global user.name "Benjamin Oakes"
 RUN git config --global user.email "hello@benjaminoakes.com"
 
+# I uploaded this build for armv7l
+RUN mkdir "$HOME/bin"; cd "$HOME/bin"; if [ "$(uname --processor)" == "x86_64" ]; then wget 'https://github.com/tomnomnom/gron/releases/download/v0.6.0/gron-linux-amd64-0.6.0.tgz'; tar xvfz *.tgz; rm *.tgz; fi; if [ "$(uname --processor)" == "armv7l" ]; then wget 'https://github.com/tomnomnom/gron/files/4910130/gron-linux-armv7l-602235e.zip'; unzip *.zip; rm *.zip; fi
+
 WORKDIR /home/benjaminoakes/workspace
 CMD zsh
