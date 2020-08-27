@@ -1,0 +1,4 @@
+FROM ubuntu:20.04
+
+RUN apt-get update && apt-get install -y imagemagick
+# Needs https://stackoverflow.com/questions/52998331/imagemagick-security-policy-pdf-blocking-conversion
