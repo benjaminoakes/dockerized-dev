@@ -34,7 +34,7 @@ USER benjaminoakes
 RUN curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
 RUN homesick clone benjaminoakes/homesick-vi-everywhere
 RUN homesick symlink homesick-vi-everywhere --force
-RUN homesick clone ContinuityControl/dotfiles
+RUN homesick clone TigerDenHackers/dotfiles
 RUN homesick symlink dotfiles --force
 # This colorscheme is causing problems on first run and doesn't look quite right yet
 RUN sed -i "s/^colorscheme solarized8$/colorscheme desert/" ~/.vimrc
